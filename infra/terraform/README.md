@@ -1,45 +1,45 @@
-# Infrastruttura Terraform
+# Terraform infrastructure
 
-Ambiente unico che gestisce:
+Single environment that manages:
 
-- **Supabase**: progetto e database Postgres.
-- **Vercel**: progetto Next.js senza integrazione Git, con le variabili d'ambiente di Supabase già impostate.
+- **Supabase**: project and Postgres database.
+- **Vercel**: Next.js project without Git integration, with the Supabase environment variables already set.
 
-## Requisiti
+## Requirements
 
 - Terraform >= 1.10
-- Token Vercel: <https://vercel.com/account/tokens>
-- Token Supabase: <https://supabase.com/dashboard/account/tokens>
-- Slug dell'organizzazione Supabase (visibile nell'URL della dashboard)
+- Vercel token: <https://vercel.com/account/tokens>
+- Supabase token: <https://supabase.com/dashboard/account/tokens>
+- Supabase organization slug (visible in the dashboard URL)
 
-## Configurazione
+## Setup
 
 ```bash
 cd infra/terraform
-cp terraform.tfvars.example terraform.tfvars   # inserisci chiavi e riferimenti
+cp terraform.tfvars.example terraform.tfvars   # fill in keys and account references
 terraform init
 terraform plan
 terraform apply
 ```
 
-`terraform.tfvars` e lo state (`*.tfstate`) sono esclusi da git perché contengono segreti.
-Dopo il primo `terraform init` versiona il file `.terraform.lock.hcl`.
+`terraform.tfvars` and the state (`*.tfstate`) are git-ignored because they contain secrets.
+After the first `terraform init`, commit the `.terraform.lock.hcl` file.
 
-## Deploy dell'app
+## App deployment
 
-Il progetto Vercel non è collegato al repository, quindi i deploy si fanno con la Vercel CLI:
+The Vercel project is not linked to the repository, so deployments are done with the Vercel CLI:
 
 ```bash
-export VERCEL_ORG_ID=<team-id-o-user-id>
+export VERCEL_ORG_ID=<team-id-or-user-id>
 export VERCEL_PROJECT_ID=$(terraform -chdir=infra/terraform output -raw vercel_project_id)
 vercel deploy --prod
 ```
 
-## Output
+## Outputs
 
-| Nome | Descrizione |
+| Name | Description |
 | --- | --- |
-| `vercel_project_id` | ID del progetto Vercel |
-| `supabase_project_ref` | Reference del progetto Supabase |
-| `supabase_url` | URL delle API Supabase |
-| `supabase_publishable_key` | Publishable key (sensibile: `terraform output -raw supabase_publishable_key`) |
+| `vercel_project_id` | Vercel project ID |
+| `supabase_project_ref` | Supabase project reference |
+| `supabase_url` | Supabase API URL |
+| `supabase_publishable_key` | Publishable key (sensitive: `terraform output -raw supabase_publishable_key`) |
