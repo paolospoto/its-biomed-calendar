@@ -70,9 +70,9 @@ variable "auth_additional_redirect_urls" {
 }
 
 variable "auth_disable_signup" {
-  description = "Prevent new users from signing up."
+  description = "Prevent self sign-up. Users are created by an admin."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "auth_email_autoconfirm" {
@@ -85,4 +85,18 @@ variable "auth_password_min_length" {
   description = "Minimum password length."
   type        = number
   default     = 8
+}
+
+variable "auth_smtp" {
+  description = "Custom SMTP server for Auth emails. Required to deliver password recovery emails to users outside the Supabase team."
+  type = object({
+    host        = string
+    port        = number
+    user        = string
+    password    = string
+    admin_email = string
+    sender_name = string
+  })
+  default   = null
+  sensitive = true
 }

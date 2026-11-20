@@ -3,7 +3,7 @@
 Single environment that manages:
 
 - **Supabase**: project and Postgres database.
-- **Supabase Auth**: email/password authentication, site URL and allowed redirect URLs pointing to the Vercel app.
+- **Supabase Auth**: email/password authentication without self sign-up, site URL and allowed redirect URLs pointing to the Vercel app.
 - **Vercel**: Next.js project without Git integration, with the Supabase environment variables already set.
 
 ## Requirements
@@ -29,7 +29,9 @@ After the first `terraform init`, commit the `.terraform.lock.hcl` file.
 ## Supabase Auth
 
 Auth is included in the Supabase Free plan (up to 50,000 monthly active users).
-The built-in email service is rate limited and meant for testing: configure a custom SMTP provider before going to production.
+Self sign-up is disabled: users are created by an admin from the Supabase dashboard or with `auth.admin.createUser`.
+
+Password recovery needs a custom SMTP server, set through `auth_smtp`. Without it, Supabase only delivers emails to members of the organization team, with a low hourly limit.
 
 Auth settings live in `auth.tf` and can be tuned through the `auth_*` variables and `app_url`.
 
