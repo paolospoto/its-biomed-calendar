@@ -1,0 +1,4 @@
+scripts/admin/
+.env
+.env.*
+!.env.example
