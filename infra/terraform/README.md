@@ -16,14 +16,14 @@ Single environment that manages:
 ## Setup
 
 ```bash
-cd infra/terraform
-cp terraform.tfvars.example terraform.tfvars   # fill in keys and account references
-terraform init
-terraform plan
-terraform apply
+cp infra/terraform/terraform.tfvars.example infra/terraform/terraform.tfvars   # fill in keys and account references
+scripts/infra.sh init
+scripts/infra.sh plan
+scripts/infra.sh apply
 ```
 
-`terraform.tfvars` and the state (`*.tfstate`) are git-ignored because they contain secrets.
+`terraform.tfvars`, the saved plan (`tfplan`) and the state (`*.tfstate`) are git-ignored because they contain secrets.
+The state uses the default local backend; `scripts/infra.sh` backs it up before every `apply` and `destroy` (see the root `README.md`).
 After the first `terraform init`, commit the `.terraform.lock.hcl` file.
 
 ## Supabase Auth
