@@ -19,15 +19,5 @@ supabase_database_password = "<strong-database-password>"
 # app_url                       = "https://its-biomed-calendar.vercel.app"
 # auth_additional_redirect_urls = ["http://localhost:3000/**", "https://*-<team-slug>.vercel.app/**"]
 # auth_disable_signup           = true
-# auth_email_autoconfirm        = false
 # auth_password_min_length      = 8
 
-# Custom SMTP, needed for password recovery emails to students
-# auth_smtp = {
-#   host        = "smtp.example.com"
-#   port        = 587
-#   user        = "<smtp-user>"
-#   password    = "<smtp-password>"
-#   admin_email = "no-reply@example.com"
-#   sender_name = "ITS Biomed Calendar"
-# }

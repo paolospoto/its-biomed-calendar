@@ -23,3 +23,9 @@ output "app_url" {
   description = "Production URL used as Supabase Auth site URL."
   value       = local.app_url
 }
+
+output "supabase_secret_key" {
+  description = "Supabase secret key, used by the admin scripts."
+  value       = try(data.supabase_apikeys.main.secret_keys[0].api_key, null)
+  sensitive   = true
+}

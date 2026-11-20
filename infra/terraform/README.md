@@ -29,9 +29,8 @@ After the first `terraform init`, commit the `.terraform.lock.hcl` file.
 ## Supabase Auth
 
 Auth is included in the Supabase Free plan (up to 50,000 monthly active users).
-Self sign-up is disabled: users are created by an admin from the Supabase dashboard or with `auth.admin.createUser`.
-
-Password recovery needs a custom SMTP server, set through `auth_smtp`. Without it, Supabase only delivers emails to members of the organization team, with a low hourly limit.
+Self sign-up and password recovery are not used, so no SMTP server is needed.
+Users are created, and their passwords changed, by an admin with the local scripts in `scripts/admin/` (git-ignored) or from the Supabase dashboard.
 
 Auth settings live in `auth.tf` and can be tuned through the `auth_*` variables and `app_url`.
 
@@ -54,3 +53,4 @@ vercel deploy --prod
 | `supabase_url` | Supabase API URL |
 | `app_url` | Production URL used by Supabase Auth |
 | `supabase_publishable_key` | Publishable key (sensitive: `terraform output -raw supabase_publishable_key`) |
+| `supabase_secret_key` | Secret key for the admin scripts (sensitive) |
