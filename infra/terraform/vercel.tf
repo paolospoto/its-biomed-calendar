@@ -20,5 +20,11 @@ resource "vercel_project_environment_variables" "web" {
       target    = ["production", "preview", "development"]
       sensitive = false
     },
+    {
+      key       = "NEXT_PUBLIC_SITE_URL"
+      value     = local.app_url
+      target    = ["production"]
+      sensitive = false
+    },
   ]
 }

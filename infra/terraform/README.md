@@ -3,6 +3,7 @@
 Single environment that manages:
 
 - **Supabase**: project and Postgres database.
+- **Supabase Auth**: email/password authentication, site URL and allowed redirect URLs pointing to the Vercel app.
 - **Vercel**: Next.js project without Git integration, with the Supabase environment variables already set.
 
 ## Requirements
@@ -25,6 +26,13 @@ terraform apply
 `terraform.tfvars` and the state (`*.tfstate`) are git-ignored because they contain secrets.
 After the first `terraform init`, commit the `.terraform.lock.hcl` file.
 
+## Supabase Auth
+
+Auth is included in the Supabase Free plan (up to 50,000 monthly active users).
+The built-in email service is rate limited and meant for testing: configure a custom SMTP provider before going to production.
+
+Auth settings live in `auth.tf` and can be tuned through the `auth_*` variables and `app_url`.
+
 ## App deployment
 
 The Vercel project is not linked to the repository, so deployments are done with the Vercel CLI:
@@ -42,4 +50,5 @@ vercel deploy --prod
 | `vercel_project_id` | Vercel project ID |
 | `supabase_project_ref` | Supabase project reference |
 | `supabase_url` | Supabase API URL |
+| `app_url` | Production URL used by Supabase Auth |
 | `supabase_publishable_key` | Publishable key (sensitive: `terraform output -raw supabase_publishable_key`) |

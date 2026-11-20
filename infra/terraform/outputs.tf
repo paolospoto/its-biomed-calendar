@@ -18,3 +18,8 @@ output "supabase_publishable_key" {
   value       = data.supabase_apikeys.main.publishable_key
   sensitive   = true
 }
+
+output "app_url" {
+  description = "Production URL used as Supabase Auth site URL."
+  value       = local.app_url
+}

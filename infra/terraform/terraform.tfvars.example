@@ -14,3 +14,10 @@ supabase_database_password = "<strong-database-password>"
 # supabase_project_name  = "its-biomed-calendar"
 # supabase_region        = "eu-central-1"
 # supabase_instance_size = "micro"
+
+# Supabase Auth
+# app_url                       = "https://its-biomed-calendar.vercel.app"
+# auth_additional_redirect_urls = ["http://localhost:3000/**", "https://*-<team-slug>.vercel.app/**"]
+# auth_disable_signup           = false
+# auth_email_autoconfirm        = false
+# auth_password_min_length      = 8

@@ -56,3 +56,33 @@ variable "supabase_database_password" {
   type        = string
   sensitive   = true
 }
+
+variable "app_url" {
+  description = "Public production URL of the web app. Defaults to https://<vercel_project_name>.vercel.app."
+  type        = string
+  default     = null
+}
+
+variable "auth_additional_redirect_urls" {
+  description = "Extra URLs allowed as Supabase Auth redirects (e.g. Vercel preview URLs)."
+  type        = list(string)
+  default     = ["http://localhost:3000/**"]
+}
+
+variable "auth_disable_signup" {
+  description = "Prevent new users from signing up."
+  type        = bool
+  default     = false
+}
+
+variable "auth_email_autoconfirm" {
+  description = "Skip email confirmation on sign up."
+  type        = bool
+  default     = false
+}
+
+variable "auth_password_min_length" {
+  description = "Minimum password length."
+  type        = number
+  default     = 8
+}
