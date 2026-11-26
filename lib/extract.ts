@@ -1,8 +1,12 @@
+import type { Json } from "@/types/database.types";
+
+type JsonObject = { [key: string]: Json | undefined };
+
 export type ExtractIssue = { code: string; severity: "error" | "warning"; message: string };
 
 export type ExtractResult = {
-  file: { period_start: string; period_end: string; declared_hours: number | null; report: Record<string, unknown> };
-  rows: Record<string, unknown>[];
+  file: { period_start: string; period_end: string; declared_hours: number | null; report: JsonObject };
+  rows: JsonObject[];
 };
 
 export async function callExtractFunction(pdf: ArrayBuffer): Promise<ExtractResult> {
