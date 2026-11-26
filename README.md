@@ -55,7 +55,7 @@ npm install
 npm run dev
 ```
 
-PDF extraction lives in `api/extract_calendar.py` (Vercel Python function, package `calendar_parser`). It is called by the `/manutenzione/importa` Server Action with the `EXTRACT_FUNCTION_SECRET` header. Whether Next.js and the Python function coexist in one Vercel project still has to be verified with a deploy.
+PDF extraction lives in `api/extract_calendar.py` (Vercel Python function, package `calendar_parser`). It is called by the `/manutenzione/importa` Server Action with the `EXTRACT_FUNCTION_SECRET` header. Next.js and the Python function are deployed together in one Vercel project.
 
 ## Calendar parser
 
