@@ -87,26 +87,26 @@ main() {
     status)
       require_supabase_dir
       load_remote_env
-      sb migration list --remote="$SUPABASE_PROJECT_REF"
+      sb migration list --project-ref "$SUPABASE_PROJECT_REF"
       ;;
     diff)
       require_supabase_dir
       load_remote_env
-      sb db push --dry-run --remote="$SUPABASE_PROJECT_REF"
+      sb db push --dry-run --project-ref "$SUPABASE_PROJECT_REF"
       ;;
     push)
       require_supabase_dir
       load_remote_env
-      sb db push --dry-run --remote="$SUPABASE_PROJECT_REF"
+      sb db push --dry-run --project-ref "$SUPABASE_PROJECT_REF"
       confirm "Apply these migrations to $SUPABASE_PROJECT_REF?" || die "aborted"
-      sb db push --remote="$SUPABASE_PROJECT_REF" --yes
-      sb migration list --remote="$SUPABASE_PROJECT_REF"
+      sb db push --project-ref "$SUPABASE_PROJECT_REF" --yes
+      sb migration list --project-ref "$SUPABASE_PROJECT_REF"
       ;;
     types)
       require_supabase_dir
       load_remote_env
       mkdir -p "$(dirname "$TYPES_OUT")"
-      sb gen types --lang typescript --remote="$SUPABASE_PROJECT_REF" >"$TYPES_OUT"
+      sb gen types --lang typescript --project-id "$SUPABASE_PROJECT_REF" >"$TYPES_OUT"
       info "types written to $TYPES_OUT"
       ;;
     -h|--help|help|"")
