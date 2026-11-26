@@ -46,4 +46,23 @@ npm install
 npm run dev
 ```
 
-PDF extraction lives in `api/extract_calendar.py` (Vercel Python function, package `calendar_parser`). It is called by the `/manutenzione/importa` Server Action with the `EXTRACT_FUNCTION_SECRET` header and currently answers 501: the parser is not ported yet. Whether Next.js and the Python function coexist in one Vercel project still has to be verified with a deploy.
+PDF extraction lives in `api/extract_calendar.py` (Vercel Python function, package `calendar_parser`). It is called by the `/manutenzione/importa` Server Action with the `EXTRACT_FUNCTION_SECRET` header. Whether Next.js and the Python function coexist in one Vercel project still has to be verified with a deploy.
+
+## Calendar parser
+
+`calendar_parser.extract_calendar(pdf_bytes)` reads a monthly calendar exported from Excel and returns `{"file": {...}, "rows": [...]}` in the shape expected by `create_import_batch`:
+
+- `file`: `period_start` and `period_end` from the "CALENDARIO DIDATTICO ..." title (whole months), `declared_hours` from the "ORE TOTALI" row, and a `report` with counts, computed hours and the notes written in the totals row.
+- `rows`: one `lesson` per time slot, one `event` per day for rows without a time slot (holidays, suspensions, early exits, events spanning several days). `module_key` and `teacher_key` are the raw names upper-cased without accents and punctuation, used to match `module_alias` and `teacher_alias`.
+- `issues` on each row: `error` (no date, date outside the period, invalid time, missing module, overlapping lessons) or `warning` (missing teacher, weekday not matching the date, ORE column not matching the time slot, note not recognised as an assessment).
+
+A PDF without the calendar table (for example a scan) raises `ValueError`, answered with 422.
+
+```bash
+python -m venv .venv && . .venv/bin/activate
+pip install -r requirements-dev.txt
+pytest                                       # also run by .github/workflows/parser.yml
+python -m calendar_parser "tests/fixtures/11 NOVEMBRE.pdf"   # print the extraction as JSON
+```
+
+The tests use the real calendars in `tests/fixtures/` (November 2025 to November 2026) and pin the anomalies they contain, such as a day dated 2023 in the November–December 2025 file and a lesson on 21 July 2026 whose ORE column says 5 for a 9:00–13:00 slot.

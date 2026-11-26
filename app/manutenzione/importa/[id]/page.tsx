@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import type { ExtractIssue } from "@/lib/extract";
 import { applyBatch, discardBatch } from "../actions";
 
 export default async function ReviewPage({ params }: { params: Promise<{ id: string }> }) {
@@ -13,12 +14,14 @@ export default async function ReviewPage({ params }: { params: Promise<{ id: str
     .order("start_time");
 
   if (!batch) return <p>Importazione non trovata.</p>;
-  const errors = (rows ?? []).filter((r) => Array.isArray(r.issues) && r.issues.length > 0);
+  const issues: ExtractIssue[] = (rows ?? []).flatMap((r) => (Array.isArray(r.issues) ? r.issues : []));
+  const errors = issues.filter((i) => i.severity === "error");
+  const warnings = issues.filter((i) => i.severity === "warning");
 
   return (
     <>
       <h1>{batch.file_name}</h1>
-      <p>{rows?.length ?? 0} righe, {errors.length} con problemi.</p>
+      <p>{rows?.length ?? 0} righe, {errors.length} errori, {warnings.length} avvisi.</p>
       <form action={applyBatch}>
         <input type="hidden" name="id" value={id} />
         <button disabled={batch.status !== "draft" || errors.length > 0}>Applica</button>
