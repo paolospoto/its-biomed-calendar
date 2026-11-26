@@ -1,0 +1,188 @@
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 32px;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 32px 36px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: linear-gradient(120deg, #8f3c55 0%, #a8526b 60%, #b9677f 100%);
+  color: #fff;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -60px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.09);
+  pointer-events: none;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.heroMeta {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.heroButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--brand);
+  font-weight: 600;
+}
+
+.heroProgress {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  max-width: 440px;
+}
+
+.heroHours {
+  margin: 0 0 6px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 20px;
+  align-items: start;
+}
+
+.calendarCard {
+  padding: 20px 20px 24px;
+}
+
+.calendarToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.range {
+  flex: 1;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.upcoming {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.upcoming li {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.upcoming li:last-child {
+  border-bottom: none;
+}
+
+.upcoming p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.dateTile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 0;
+  border-radius: 12px;
+  background: var(--brand-tint);
+  color: var(--brand);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.dateTile strong {
+  font-size: 20px;
+  line-height: 1.1;
+}
+
+.upcomingTitle {
+  font-weight: 600;
+}
+
+.upcomingTime {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: var(--ink-2);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.test {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.test p {
+  margin: 0;
+}
+
+.testTitle {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.miniNote {
+  margin: 14px 0 0;
+}
+
+@media (max-width: 1100px) {
+  .layout,
+  .hero {
+    grid-template-columns: 1fr;
+  }
+}

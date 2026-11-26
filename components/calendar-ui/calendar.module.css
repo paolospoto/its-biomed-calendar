@@ -1,0 +1,273 @@
+.plum {
+  --tone: #7b4fb0;
+  --tone-bg: #efe6f7;
+  --tone-ink: #4e2a7a;
+}
+.rose {
+  --tone: #98445c;
+  --tone-bg: #f7e6eb;
+  --tone-ink: #6e2a3e;
+}
+.green {
+  --tone: #2f8a5b;
+  --tone-bg: #e3f3ea;
+  --tone-ink: #1d5e3c;
+}
+.slate {
+  --tone: #5c6b85;
+  --tone-bg: #e6e9f0;
+  --tone-ink: #36435a;
+}
+.amber {
+  --tone: #c4841f;
+  --tone-bg: #fcf0dc;
+  --tone-ink: #7a4f0c;
+}
+.blue {
+  --tone: #3e6fb0;
+  --tone-bg: #e3ecf8;
+  --tone-ink: #234a7c;
+}
+.teal {
+  --tone: #23838a;
+  --tone-bg: #dff1f1;
+  --tone-ink: #14555a;
+}
+
+.week {
+  display: grid;
+  column-gap: 0;
+}
+
+.weekHead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding-bottom: 12px;
+}
+
+.weekDayName {
+  color: var(--ink-2);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.weekDayNumber {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.weekDayToday {
+  background: var(--brand);
+  color: #fff;
+}
+
+.allDay {
+  max-width: 100%;
+  padding: 2px 8px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--warn-bg);
+  color: var(--warn);
+  font-size: 11px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hours {
+  position: relative;
+}
+
+.hours span {
+  position: absolute;
+  right: 10px;
+  color: var(--ink-3);
+  font-size: 12px;
+  transform: translateY(-50%);
+}
+
+.weekColumn {
+  position: relative;
+  border-left: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  background-image: linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+}
+
+.weekColumn:last-child {
+  border-right: 1px solid var(--line);
+}
+
+.block {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 7px 9px;
+  overflow: hidden;
+  border-left: 3px solid var(--tone);
+  border-radius: 8px;
+  background: var(--tone-bg);
+  color: var(--tone-ink);
+  font-size: 12.5px;
+  line-height: 1.3;
+}
+
+.block strong {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  font-weight: 600;
+}
+
+.blockTest {
+  border: 1.5px dashed var(--brand);
+  border-left: 3px solid var(--brand);
+  background: #fff;
+  color: var(--ink);
+}
+
+.nowLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #d9363e;
+}
+
+.nowLine::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #d9363e;
+}
+
+.mini {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+
+.miniHead {
+  padding-bottom: 6px;
+  color: var(--ink-3);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.miniDay {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto;
+  border-radius: 50%;
+  color: var(--ink-2);
+  font-size: 14px;
+}
+
+.miniBusy {
+  color: var(--brand);
+  font-weight: 700;
+}
+
+.miniWeekend {
+  color: var(--ink-3);
+}
+
+.miniToday {
+  background: var(--brand);
+  color: #fff;
+}
+
+.month {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.monthHead {
+  padding: 10px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-2);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.monthCell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 112px;
+  padding: 8px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: #fdfbfc;
+}
+
+.monthOut {
+  background: #f7f1f4;
+}
+
+.monthOut .monthDay {
+  color: var(--ink-3);
+}
+
+.monthSelected {
+  outline: 2px solid var(--brand);
+  outline-offset: -2px;
+  background: var(--brand-soft);
+}
+
+.monthDay {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.chip {
+  display: block;
+  padding: 4px 8px;
+  overflow: hidden;
+  border-left: 3px solid var(--tone);
+  border-radius: 6px;
+  background: var(--tone-bg);
+  color: var(--tone-ink);
+  font-size: 12.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chipSelected {
+  box-shadow: 0 0 0 2px var(--tone);
+}
+
+.monthEvent {
+  padding: 2px 6px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--warn-bg);
+  color: var(--warn);
+  font-size: 11px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

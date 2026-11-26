@@ -57,6 +57,16 @@ npm run dev
 
 PDF extraction lives in `api/extract_calendar.py` (Vercel Python function, package `calendar_parser`). It is called by the `/manutenzione/importa` Server Action with the `EXTRACT_FUNCTION_SECRET` header. Next.js and the Python function are deployed together in one Vercel project.
 
+### Static UI preview (`/anteprima`)
+
+The approved mockups are rebuilt as static pages under `/anteprima` (login, home, module, import review, row correction, calendar editing). They never call Supabase: the presentational components in `components/calendar-ui/` receive rows shaped like `types/database.types.ts`, read from `lib/preview/data.json`. Like the rest of the app, the pages are visible only after login.
+
+`lib/preview/data.json` is generated from the real calendars in `tests/fixtures/` with the parser, plus modules, semesters and planned hours transcribed from the scanned "Quadro orario". The reference date is fixed to 20 November 2026, 14:00, as in the mockups.
+
+```bash
+python -m scripts.build_preview_data   # with the parser requirements installed
+```
+
 ## Calendar parser
 
 `calendar_parser.extract_calendar(pdf_bytes)` reads a monthly calendar exported from Excel and returns `{"file": {...}, "rows": [...]}` in the shape expected by `create_import_batch`:
