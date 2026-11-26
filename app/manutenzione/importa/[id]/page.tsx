@@ -4,17 +4,18 @@ import { applyBatch, discardBatch } from "../actions";
 
 export default async function ReviewPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  const batchId = Number(id);
   const supabase = await createClient();
-  const { data: batch } = await supabase.from("import_batch").select("*").eq("id", id).single();
+  const { data: batch } = await supabase.from("import_batch").select("*").eq("id", batchId).single();
   const { data: rows } = await supabase
     .from("import_row")
     .select("*")
-    .eq("batch_id", id)
+    .eq("batch_id", batchId)
     .order("row_date")
     .order("start_time");
 
   if (!batch) return <p>Importazione non trovata.</p>;
-  const issues: ExtractIssue[] = (rows ?? []).flatMap((r) => (Array.isArray(r.issues) ? r.issues : []));
+  const issues = (rows ?? []).flatMap((r) => (Array.isArray(r.issues) ? (r.issues as ExtractIssue[]) : []));
   const errors = issues.filter((i) => i.severity === "error");
   const warnings = issues.filter((i) => i.severity === "warning");
 
