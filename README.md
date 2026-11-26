@@ -35,3 +35,15 @@ Remote commands target the project in the Terraform state (`supabase_project_ref
 ### Users
 
 Auth users are managed with the git-ignored scripts in `scripts/admin/`; see `infra/terraform/README.md`.
+
+## Web app
+
+Next.js (App Router) with Supabase Auth, sessions refreshed in `proxy.ts`. The calendar is visible only after login; admins are the rows of `public.app_admin` and see `/manutenzione`.
+
+```bash
+cp .env.example .env.local   # fill in the Supabase URL and publishable key
+npm install
+npm run dev
+```
+
+PDF extraction lives in `api/extract_calendar.py` (Vercel Python function, package `calendar_parser`). It is called by the `/manutenzione/importa` Server Action with the `EXTRACT_FUNCTION_SECRET` header and currently answers 501: the parser is not ported yet. Whether Next.js and the Python function coexist in one Vercel project still has to be verified with a deploy.

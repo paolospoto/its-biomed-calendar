@@ -4,6 +4,11 @@ resource "vercel_project" "web" {
   node_version = var.vercel_node_version
 }
 
+resource "random_password" "extract_function_secret" {
+  length  = 48
+  special = false
+}
+
 resource "vercel_project_environment_variables" "web" {
   project_id = vercel_project.web.id
 
@@ -25,6 +30,12 @@ resource "vercel_project_environment_variables" "web" {
       value     = local.app_url
       target    = ["production"]
       sensitive = false
+    },
+    {
+      key       = "EXTRACT_FUNCTION_SECRET"
+      value     = random_password.extract_function_secret.result
+      target    = ["production", "preview"]
+      sensitive = true
     },
   ]
 }

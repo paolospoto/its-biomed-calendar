@@ -6,6 +6,10 @@ terraform {
       source  = "vercel/vercel"
       version = "~> 5.27"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.7"
+    }
     supabase = {
       source  = "supabase/supabase"
       version = "~> 1.11"
