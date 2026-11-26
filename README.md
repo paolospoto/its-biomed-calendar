@@ -4,7 +4,7 @@
 
 Everything runs from your machine. Secrets live only in `infra/terraform/terraform.tfvars` (git-ignored), and the Terraform state stays local.
 
-Requirements: [Terraform](https://developer.hashicorp.com/terraform/install) >= 1.10, the [Supabase CLI](https://supabase.com/docs/guides/local-development/cli/getting-started) and Docker for the local database.
+Requirements: [Terraform](https://developer.hashicorp.com/terraform/install) >= 1.10, the [Supabase CLI](https://supabase.com/docs/guides/local-development/cli/getting-started), the Vercel CLI for deploys, and Docker for the local database.
 
 ### Infrastructure (`scripts/infra.sh`)
 
@@ -32,6 +32,15 @@ scripts/db.sh types                # TypeScript types from the remote schema
 
 Remote commands target the project in the Terraform state (`supabase_project_ref`) and reuse `supabase_access_token` and `supabase_database_password` from `terraform.tfvars`. `SUPABASE_PROJECT_REF`, `SUPABASE_ACCESS_TOKEN` and `SUPABASE_DB_PASSWORD` override them.
 
+### Deploy (`scripts/deploy.sh`)
+
+```bash
+scripts/deploy.sh         # preview deployment
+scripts/deploy.sh prod    # confirmation, then production
+```
+
+Requires the [Vercel CLI](https://vercel.com/docs/cli) and an applied Terraform state. The Vercel project is not linked to the repository, so the local working tree is uploaded; `.vercelignore` keeps infrastructure files, scripts and tests out of the upload.
+
 ### Users
 
 Auth users are managed with the git-ignored scripts in `scripts/admin/`; see `infra/terraform/README.md`.
@@ -46,7 +55,7 @@ npm install
 npm run dev
 ```
 
-PDF extraction lives in `api/extract_calendar.py` (Vercel Python function, package `calendar_parser`). It is called by the `/manutenzione/importa` Server Action with the `EXTRACT_FUNCTION_SECRET` header. Whether Next.js and the Python function coexist in one Vercel project still has to be verified with a deploy.
+PDF extraction lives in `api/extract_calendar.py` (Vercel Python function, package `calendar_parser`). It is called by the `/manutenzione/importa` Server Action with the `EXTRACT_FUNCTION_SECRET` header. Next.js and the Python function are deployed together in one Vercel project.
 
 ## Calendar parser
 

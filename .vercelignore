@@ -1,0 +1,9 @@
+/.env
+/.env.*
+/.github
+/infra
+/scripts
+/supabase
+/tests
+/pytest.ini
+/requirements-dev.txt
