@@ -29,8 +29,8 @@ class handler(BaseHTTPRequestHandler):
 
         try:
             result = extract_calendar(self.rfile.read(length))
-        except NotImplementedError:
-            return self._send(501, {"error": "not implemented"})
-        except Exception as exc:
+        except ValueError as exc:
             return self._send(422, {"error": str(exc)})
+        except Exception:
+            return self._send(500, {"error": "extraction failed"})
         self._send(200, result)

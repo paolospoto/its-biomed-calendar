@@ -1,3 +1,5 @@
+export type ExtractIssue = { code: string; severity: "error" | "warning"; message: string };
+
 export type ExtractResult = {
   file: { period_start: string; period_end: string; declared_hours: number | null; report: Record<string, unknown> };
   rows: Record<string, unknown>[];
@@ -16,6 +18,12 @@ export async function callExtractFunction(pdf: ArrayBuffer): Promise<ExtractResu
     },
     body: pdf,
   });
-  if (!res.ok) throw new Error(`Extraction failed (${res.status})`);
+  if (!res.ok) {
+    const detail = await res
+      .json()
+      .then((body: { error?: string }) => body.error)
+      .catch(() => undefined);
+    throw new Error(`Extraction failed (${res.status})${detail ? `: ${detail}` : ""}`);
+  }
   return res.json();
 }
